@@ -3,7 +3,7 @@ import { DataContext } from "../../context/context";
 import "./Product.css"
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useEffect } from "react";
+import { v4 as uuid } from "uuid";
 
 export const Products = () => {
     const {state, dispatch} = useContext(DataContext);
@@ -25,9 +25,7 @@ export const Products = () => {
     ? state.data 
     : state.data.filter((product) => product.department === selectedValue);
     
-    // console.log(filtered);
     
-    // dispatch({type:"FILTER_DEPARTMENT", payload: filtered})
 
       }
       
@@ -62,7 +60,7 @@ export const Products = () => {
 
       const toggleLowStock = () => {
         console.log("clicked");
-        setSelectedOption("all")
+        dispatch({type: "SELECTED_FILTER", payload: "all"})
         setShowLowStock(!showLowStock);
         console.log(showLowStock);
         
@@ -74,7 +72,7 @@ export const Products = () => {
       const [modal, setOpenModal] = useState(false)
       
       const [formData, setFormData] = useState({
-        id: '',
+        id: uuid(),
         department: '',
         name: '',
         description: '',
@@ -156,12 +154,9 @@ export const Products = () => {
             <span className="close" onClick={closeModal}>
               &times;
             </span>
-            <h2>Enter Product Details</h2>
+            <h2>Add New Product</h2>
             <form onSubmit={handleSubmit}>
-              <label>
-                ID:
-                <input type="text" name="id" value={formData.id} onChange={handleInputChange} />
-              </label>
+              
               <label>
                 Department:
                 <select name="department" value={formData.department} onChange={handleInputChange}>
@@ -181,11 +176,11 @@ export const Products = () => {
               </label>
               <label>
                 Price:
-                <input type="number" name="price" value={formData.price} onChange={handleInputChange} />
+                <input type="text" name="price" value={formData.price} onChange={handleInputChange} />
               </label>
               <label>
                 Stock:
-                <input type="number" name="stock" value={formData.stock} onChange={handleInputChange} />
+                <input type="text" name="stock" value={formData.stock} onChange={handleInputChange} />
               </label>
               <label>
                 SKU:

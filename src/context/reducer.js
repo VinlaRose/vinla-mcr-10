@@ -31,6 +31,12 @@ export const reducer = (state, action) => {
             filteredData: action.payload,
 
           };
+          case "UPDATE":
+          return {
+            ...state,
+            filteredData: action.payload,
+
+          };
         
       default:
         return state;
