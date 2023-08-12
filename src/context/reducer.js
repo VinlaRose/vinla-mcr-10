@@ -17,11 +17,13 @@ export const reducer = (state, action) => {
           ...state,
           filteredData: action.payload,
         };
-        case "UPDATE":
+        case "SELECTED_FILTER":
         return {
           ...state,
-          data: action.payload,
-          filteredData: action.payload,
+          selectedFilters: action.payload,
+          filteredData:  action.payload === 'all' 
+          ? state.data 
+          : state.data.filter((product) => product.department === action.payload)
         };
         case "LOW_STOCK_FILTER":
           return {

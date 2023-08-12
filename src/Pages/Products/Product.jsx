@@ -2,26 +2,32 @@ import { useContext } from "react"
 import { DataContext } from "../../context/context";
 import "./Product.css"
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 export const Products = () => {
     const {state, dispatch} = useContext(DataContext);
     console.log(state)
-    const [selectedOption, setSelectedOption] = useState('all');
+    const [selectedOption, setSelectedOption] = useState(state.selectedFilters || 'all');
     const [sortOption, setSortOption] = useState()
 
+
+      
   
-      const handleOptionChange = (event) => {
+  const handleOptionChange = (event) => {
         const selectedValue = event.target.value;
     setSelectedOption(selectedValue);
     console.log(selectedOption);
+    
+    dispatch({type: "SELECTED_FILTER", payload: selectedValue})
     
     const filtered = selectedValue === 'all' 
     ? state.data 
     : state.data.filter((product) => product.department === selectedValue);
     
-    console.log(filtered);
+    // console.log(filtered);
     
-    dispatch({type:"FILTER_DEPARTMENT", payload: filtered})
+    // dispatch({type:"FILTER_DEPARTMENT", payload: filtered})
 
       }
       
@@ -105,12 +111,15 @@ export const Products = () => {
     
   
     return (
-        <div>
+        <div className="productsContainer">
+         
+            
+            <div className="allFilters">
             <h1>
-                Productss
+                Products
             </h1>
             <div>
-      <select value={selectedOption} onChange={handleOptionChange}>
+      <select className="filterInputOption" value={selectedOption} onChange={handleOptionChange}>
         <option value="all">All Departments</option>
         <option value="Kitchen">Kitchen</option>
         <option value="Clothing">Clothing</option>
@@ -125,12 +134,13 @@ export const Products = () => {
       checked={showLowStock}
       onChange={() => toggleLowStock()}
     />
-    <span className="square">Low stock Items</span>
+    <div>Low stock Items</div>
+    
   </label>
     </div>
     
     <div>
-      <select value={sortOption} onChange={handleSorting}>
+      <select className="sortInput" value={sortOption} onChange={handleSorting}>
         <option value="name">Name</option>
         <option value="price">Price</option>
         <option value="stock">Stock</option>
@@ -140,7 +150,9 @@ export const Products = () => {
     <div >
         <button onClick={openModal}>New</button>
         {
-            modal && <div className="modal-content">
+            modal && 
+            <div className="modal-overlay">
+                <div className="modal-content">
             <span className="close" onClick={closeModal}>
               &times;
             </span>
@@ -194,9 +206,12 @@ export const Products = () => {
               <button type="submit">Submit</button>
             </form>
           </div>
+            </div>
         }
       
     </div>
+            </div>
+        
     
             {
                <table className="product-table">
@@ -216,7 +231,7 @@ export const Products = () => {
                      <td>
                        <img src={product.imageUrl} alt={product.name} className="product-image" />
                      </td>
-                     <td>{product.name}</td>
+                     <td><Link to={`/products/${product.id}`}>{product.name}</Link></td>
                      <td>{product.description}</td>
                      <td>${product.price}</td>
                      <td>{product.stock}</td>

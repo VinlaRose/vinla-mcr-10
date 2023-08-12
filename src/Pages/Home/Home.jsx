@@ -13,19 +13,19 @@ export const Home = () => {
    
     return (
         
-        <div>
+        <div className="detailsContainer">
             <div className="detailBox">
-                <h1>{stocks}</h1>
+                <h1 style={{color:"green"}}>{stocks}</h1>
                 <h3>Total stocks</h3>
                 
             </div>
             <div className="detailBox">
-                <h1>{delivered}</h1>
+                <h1 style={{color:"orange"}}>{delivered}</h1>
                 <h3>Total delivered</h3>
                 
             </div>
             <div className="detailBox">
-            <h1>{lowStock}</h1>
+            <h1 style={{color:"red"}}>{lowStock}</h1>
                 <h3>Low stocks items</h3>
                 
             </div>

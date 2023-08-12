@@ -1,0 +1,13 @@
+.detailsContainer{
+    display: flex;
+    justify-content: space-between;
+    margin: 100px;
+}
+
+.detailBox{
+    text-align: center;
+    background-color: rgb(220, 216, 216);
+    height: 150px;
+    width: 200px;
+    border-radius: 10px;
+}

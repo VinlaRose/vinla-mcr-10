@@ -5,9 +5,12 @@ import { data } from "../data";
 const getInitialValue = () => {
   
   const storedData = JSON.parse(localStorage.getItem("data"));
+  const storedFilter = JSON.parse(localStorage.getItem("filter"));
+  const storedFilteredData = JSON.parse(localStorage.getItem("filterData"));
   return {
     data: storedData || data,
-    filteredData: storedData || data,
+    filteredData: storedFilteredData || data,
+    selectedFilters: storedFilter || null,
   };
 };
 
@@ -19,7 +22,9 @@ export const DataProvider = ({ children }) => {
   useEffect(() => {
     
     localStorage.setItem("data", JSON.stringify(state.data));
-  }, [state.data]);
+    localStorage.setItem("filter", JSON.stringify(state.selectedFilters));
+    localStorage.setItem("filterData", JSON.stringify(state.filteredData));
+  }, [state]);
 
   return (
     <DataContext.Provider value={{ state, dispatch }}>

@@ -4,6 +4,7 @@ import './App.css';
 import { Home } from './Pages/Home/Home';
 import { Department } from './Pages/Departments/Department';
 import { Products } from './Pages/Products/Product';
+import { SinglePage } from './Pages/SinglePage/SinglePage';
 
 function App() {
     const navigate = useNavigate();
@@ -28,6 +29,7 @@ function App() {
         <Route path="/" element={<Home/>}/>
         <Route path="/departments" element={<Department/>}/>
         <Route path="/products" element={<Products/>}/>
+        <Route path="/products/:productId" element={<SinglePage/>} />
       </Routes>
         </div>
       

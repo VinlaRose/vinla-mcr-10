@@ -3,10 +3,16 @@
 }
 
 .leftNav{
-    flex: 3;
+    flex: 1;
     background-color: #282c34;
     color: white;
     min-height: 100vh;
+}
+
+.navItems{
+    margin: 40px;
+    cursor: pointer;
+    font-size: 25px;
 }
 
 .main{
